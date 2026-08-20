@@ -1,0 +1,12 @@
+{
+  "name": "gestor-de-publicaciones",
+  "version": "1.0.0",
+  "description": "Gestor de publicaciones para LDAW",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
