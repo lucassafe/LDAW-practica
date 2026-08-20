@@ -1,13 +1,13 @@
 import { Usuario } from "./Usuario.js";
 import { Publicacion } from "./Publicacion.js";
+import { RepositorioPublicaciones } from "./RepositorioPublicaciones.js";
 
-//users
-
+// users
 const jorge = new Usuario("Jorge", "jorge@mail.com");
 const ana = new Usuario("Ana", "ana@mail.com");
 const carlos = new Usuario("Carlos", "carlos@mail.com");
 
-//publis
+// publis
 const pub1 = new Publicacion(
   "Vendo apuntes de Álgebra",
   "Completos y anillados",
@@ -39,34 +39,63 @@ pub5.activa = false;
 
 const publicaciones = [pub1, pub2, pub3, pub4, pub5];
 
-console.log("=== TODAS LAS PUBLICACIONES (forEach) ===");
+console.log("TODAS LAS PUBLICACIONES");
 publicaciones.forEach((pub) => {
   console.log(pub.mostrarResumen());
-  console.log("Está activa?:", pub.estaActiva());
-  console.log("----");
+  console.log("Activa?:", pub.estaActiva());
+  console.log("  ----");
 });
 
 const activas = publicaciones.filter((pub) => pub.estaActiva());
-console.log(`\n=== PUBLICACIONES ACTIVAS (filter): ${activas.length} ===`);
+console.log(`\nPUBLICACIONES ACTIVAS: ${activas.length}`);
 activas.forEach((pub) => console.log(" -", pub.titulo));
 
 const nombreBuscado = "Jorge";
 const primera = publicaciones.find((pub) => pub.autor.nombre === nombreBuscado);
-console.log(`\n=== PRIMERA PUBLICACIÓN DE ${nombreBuscado} (find) ===`);
+console.log(`\nPRIMERA PUBLICACIÓN DE ${nombreBuscado}`);
 console.log(primera ? primera.mostrarResumen() : "No encontrada");
 
-console.log("\n=== VERIFICACIÓN DE REFERENCIA ===");
+console.log("\nVERIFICACIÓN DE REFERENCIA");
 console.log("Email de Jorge ANTES del cambio:");
 console.log("  pub1.autor.email:", pub1.autor.email);
 console.log("  pub2.autor.email:", pub2.autor.email);
 
 jorge.email = "jorge_nuevo@mail.com";
 
-console.log(
-  "\nEmail de Jorge DESPUÉS del cambio (jorge.email = 'jorge_nuevo@mail.com'):",
-);
+console.log("\nEmail de Jorge DESPUÉS del cambio:");
 console.log("  pub1.autor.email:", pub1.autor.email);
 console.log("  pub2.autor.email:", pub2.autor.email);
+console.log("Ambas publicaciones ven el cambio? Sí");
+
+console.log("=============");
+console.log("REPOSITORIO DE PUBLICACIONES");
+
+const repo = new RepositorioPublicaciones();
+
+repo.agregar(pub1);
+repo.agregar(pub2);
+repo.agregar(pub3);
+repo.agregar(pub4);
+repo.agregar(pub5);
+
 console.log(
-  "\nAmbas publicaciones ven el cambio? Si porque comparten el MISMO objeto Usuario.",
+  `\nTotal de publicaciones en el repositorio: ${repo.cantidadTotal()}`,
 );
+
+console.log("\nPublicaciones de Jorge:");
+repo
+  .buscarPorUsuario("Jorge")
+  .forEach((pub) => console.log(" -", pub.mostrarResumen()));
+
+console.log("\nPublicaciones de Ana:");
+repo
+  .buscarPorUsuario("Ana")
+  .forEach((pub) => console.log(" -", pub.mostrarResumen()));
+
+console.log("\nPublicaciones de Carlos:");
+repo
+  .buscarPorUsuario("Carlos")
+  .forEach((pub) => console.log(" -", pub.mostrarResumen()));
+
+console.log("\nPublicaciones activas en el repositorio:");
+repo.filtrarActivas().forEach((pub) => console.log(" -", pub.mostrarResumen()));
