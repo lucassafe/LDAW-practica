@@ -1,5 +1,7 @@
 import { Usuario } from "./Usuario.js";
 import { Publicacion } from "./Publicacion.js";
+import { PublicacionVenta } from "./PublicacionVenta.js";
+import { PublicacionServicio } from "./PublicacionServicio.js";
 import { RepositorioPublicaciones } from "./RepositorioPublicaciones.js";
 
 // users
@@ -8,10 +10,11 @@ const ana = new Usuario("Ana", "ana@mail.com");
 const carlos = new Usuario("Carlos", "carlos@mail.com");
 
 // publis
-const pub1 = new Publicacion(
+const pub1 = new PublicacionVenta(
   "Vendo apuntes de Álgebra",
   "Completos y anillados",
   jorge,
+  1500 // le mandamos el precio por aca
 );
 const pub2 = new Publicacion(
   "Perdí mi termo en el buffet",
@@ -23,10 +26,10 @@ const pub3 = new Publicacion(
   "Para el TP de Laboratorio",
   ana,
 );
-const pub4 = new Publicacion(
+const pub4 = new PublicacionServicio(
   "Doy clases particulares de JS",
   "Precio accesible",
-  carlos,
+  carlos
 );
 const pub5 = new Publicacion(
   "Compro monitor usado",
@@ -38,6 +41,13 @@ pub4.activa = false;
 pub5.activa = false;
 
 const publicaciones = [pub1, pub2, pub3, pub4, pub5];
+
+console.log("\n--- chequeando las instancias ---");
+publicaciones.forEach((pub, i) => {
+  const esPublicacion = pub instanceof Publicacion;
+  // nos tiene que dar true en todos los casos
+  console.log(`pub ${i + 1} es una Publicacion:`, esPublicacion);
+});
 
 console.log("TODAS LAS PUBLICACIONES");
 publicaciones.forEach((pub) => {
