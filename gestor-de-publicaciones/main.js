@@ -109,3 +109,11 @@ repo
 
 console.log("\nPublicaciones activas en el repositorio:");
 repo.filtrarActivas().forEach((pub) => console.log(" -", pub.mostrarResumen()));
+
+console.log("\n--- TEST: Listar por tipo (Ventas) ---");
+const ventas = repo.listarPorTipo(PublicacionVenta);
+ventas.forEach((venta) => console.log(" - VENTA:", venta.titulo));
+
+console.log("\n--- TEST: Listar por tipo (Servicios) ---");
+const servicios = repo.listarPorTipo(PublicacionServicio);
+servicios.forEach((servicio) => console.log(" - SERVICIO:", servicio.titulo));
