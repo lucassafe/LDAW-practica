@@ -14,7 +14,7 @@ const pub1 = new PublicacionVenta(
   "Vendo apuntes de Álgebra",
   "Completos y anillados",
   jorge,
-  1500 // le mandamos el precio por aca
+  1500, // le mandamos el precio por aca
 );
 const pub2 = new Publicacion(
   "Perdí mi termo en el buffet",
@@ -31,7 +31,7 @@ const pub4 = new PublicacionServicio(
   "Precio accesible",
   carlos,
   "Virtual",
-  "1 mes"
+  "1 mes",
 );
 const pub5 = new Publicacion(
   "Compro monitor usado",
@@ -42,35 +42,33 @@ const pub6 = new PublicacionVenta(
   "Vendo teclado mecánico",
   "Switches red",
   jorge,
-  3000
+  3000,
 );
 const pub7 = new PublicacionServicio(
   "Reparación de PC",
   "Formateo y limpieza",
   carlos,
   "Presencial",
-  "1 día"
+  "1 día",
 );
 const pub8 = new PublicacionVenta(
   "Vendo guitarra acústica",
   "Casi sin uso, con funda",
   ana,
-  50000
+  50000,
 );
 const pub9 = new PublicacionServicio(
   "Diseño web",
   "Páginas institucionales",
   ana,
   "Remoto",
-  "2 semanas"
+  "2 semanas",
 );
 
 pub4.activa = false;
 pub5.activa = false;
 
 const publicaciones = [pub1, pub2, pub3, pub4, pub5, pub6, pub7, pub8, pub9];
-
-
 
 console.log("TODAS LAS PUBLICACIONES");
 publicaciones.forEach((pub) => {
@@ -110,6 +108,10 @@ repo.agregar(pub2);
 repo.agregar(pub3);
 repo.agregar(pub4);
 repo.agregar(pub5);
+repo.agregar(pub6);
+repo.agregar(pub7);
+repo.agregar(pub8);
+repo.agregar(pub9);
 
 console.log(
   `\nTotal de publicaciones en el repositorio: ${repo.cantidadTotal()}`,
@@ -140,3 +142,12 @@ ventas.forEach((venta) => console.log(" - VENTA:", venta.titulo));
 console.log("\n--- TEST: Listar por tipo (Servicios) ---");
 const servicios = repo.listarPorTipo(PublicacionServicio);
 servicios.forEach((servicio) => console.log(" - SERVICIO:", servicio.titulo));
+
+console.log("\n--- TEST: listarResumenes() ---");
+const resumenes = repo.listarResumenes();
+resumenes.forEach((r) => console.log(r));
+
+console.log("\n--- TEST: filtrarPorTipo(PublicacionVenta) ---");
+repo
+  .filtrarPorTipo(PublicacionVenta)
+  .forEach((pub) => console.log(" -", pub.mostrarResumen()));

@@ -22,4 +22,12 @@ export class RepositorioPublicaciones {
   listarPorTipo(claseConstructor) {
     return this.publicaciones.filter((pub) => pub instanceof claseConstructor);
   }
+
+  listarResumenes() {
+    return this.publicaciones.map((pub) => pub.mostrarResumen());
+  }
+
+  filtrarPorTipo(claseConstructor) {
+    return this.publicaciones.filter((pub) => pub instanceof claseConstructor);
+  }
 }
