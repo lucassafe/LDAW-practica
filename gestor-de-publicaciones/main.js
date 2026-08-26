@@ -29,25 +29,48 @@ const pub3 = new Publicacion(
 const pub4 = new PublicacionServicio(
   "Doy clases particulares de JS",
   "Precio accesible",
-  carlos
+  carlos,
+  "Virtual",
+  "1 mes"
 );
 const pub5 = new Publicacion(
   "Compro monitor usado",
   "De 24 pulgadas o más",
   ana,
 );
+const pub6 = new PublicacionVenta(
+  "Vendo teclado mecánico",
+  "Switches red",
+  jorge,
+  3000
+);
+const pub7 = new PublicacionServicio(
+  "Reparación de PC",
+  "Formateo y limpieza",
+  carlos,
+  "Presencial",
+  "1 día"
+);
+const pub8 = new PublicacionVenta(
+  "Vendo guitarra acústica",
+  "Casi sin uso, con funda",
+  ana,
+  50000
+);
+const pub9 = new PublicacionServicio(
+  "Diseño web",
+  "Páginas institucionales",
+  ana,
+  "Remoto",
+  "2 semanas"
+);
 
 pub4.activa = false;
 pub5.activa = false;
 
-const publicaciones = [pub1, pub2, pub3, pub4, pub5];
+const publicaciones = [pub1, pub2, pub3, pub4, pub5, pub6, pub7, pub8, pub9];
 
-console.log("\n--- chequeando las instancias ---");
-publicaciones.forEach((pub, i) => {
-  const esPublicacion = pub instanceof Publicacion;
-  // nos tiene que dar true en todos los casos
-  console.log(`pub ${i + 1} es una Publicacion:`, esPublicacion);
-});
+
 
 console.log("TODAS LAS PUBLICACIONES");
 publicaciones.forEach((pub) => {
