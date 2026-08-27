@@ -122,6 +122,14 @@ console.log("REPOSITORIO DE PUBLICACIONES");
 
 const repo = new RepositorioPublicaciones();
 
+repo.on("publicacionAgregada", (pub) => {
+  console.log(`\nNueva publicación agregada: "${pub.titulo}"`);
+});
+
+repo.on("publicacionAgregada", (pub) => {
+  console.log(`El usuario ${pub.autor.nombre} creó una publicación.`);
+});
+
 repo.agregar(pub1);
 repo.agregar(pub2);
 repo.agregar(pub3);
