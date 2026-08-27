@@ -1,5 +1,8 @@
-export class RepositorioPublicaciones {
+import { EventEmitter } from "node:events";
+
+export class RepositorioPublicaciones extends EventEmitter {
   constructor() {
+    super();
     this.publicaciones = []; // array interno
   }
 
