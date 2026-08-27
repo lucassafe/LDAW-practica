@@ -178,3 +178,26 @@ console.log("\n--- TEST: filtrarPorTipo(PublicacionVenta) ---");
 repo
   .filtrarPorTipo(PublicacionVenta)
   .forEach((pub) => console.log(" -", pub.mostrarResumen()));
+
+console.log("\n--- TEST: Parte 3 (Asincronismo) ---");
+
+function publicarConDemora(publicacion, callback) {
+  setTimeout(() => {
+    repo.agregar(publicacion);
+    if (callback) {
+      callback();
+    }
+  }, 2000);
+}
+
+const pub10 = new Publicacion(
+  "Busco grupo para el TP",
+  "Soy de la comisión 3",
+  jorge
+);
+
+publicarConDemora(pub10, () => {
+  console.log("¡Terminó la demora! La publicación 10 se agregó exitosamente.");
+});
+
+console.log("-> Este mensaje se ejecuta justo después de llamar a publicarConDemora, no espera a que pasen los 2 segundos.");
