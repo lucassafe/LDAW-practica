@@ -5,6 +5,25 @@ import { PublicacionServicio } from "./PublicacionServicio.js";
 import { RepositorioPublicaciones } from "./RepositorioPublicaciones.js";
 
 // users
+function validarPublicacion(publicacion, reglas) {
+  if (publicacion.titulo.length < reglas.minCaracteresTitulo) {
+    return false;
+  }
+  if (
+    !reglas.permitirGratuitos &&
+    publicacion instanceof PublicacionVenta &&
+    publicacion.precio <= 0
+  ) {
+    return false;
+  }
+  return true;
+}
+
+const reglasDeValidacion = {
+  minCaracteresTitulo: 5,
+  permitirGratuitos: false,
+};
+
 const jorge = new Usuario("Jorge", "jorge@mail.com");
 const ana = new Usuario("Ana", "ana@mail.com");
 const carlos = new Usuario("Carlos", "carlos@mail.com");
