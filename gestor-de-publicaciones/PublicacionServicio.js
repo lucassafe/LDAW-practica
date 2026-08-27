@@ -5,6 +5,7 @@ export class PublicacionServicio extends Publicacion {
     super(titulo, descripcion, autor);
     this.modalidad = modalidad;
     this.duracion = duracion;
+    this.cliente = null; // Representa quién reservó el servicio
   }
 
   mostrarResumen() {
