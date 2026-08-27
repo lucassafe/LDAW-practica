@@ -181,23 +181,31 @@ repo
 
 console.log("\n--- TEST: Parte 3 (Asincronismo) ---");
 
-function publicarConDemora(publicacion, callback) {
-  setTimeout(() => {
-    repo.agregar(publicacion);
-    if (callback) {
-      callback();
-    }
-  }, 2000);
+function publicarConDemora(publicacion) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      repo.agregar(publicacion);
+      resolve();
+    }, 2000);
+  });
 }
 
 const pub10 = new Publicacion(
   "Busco grupo para el TP",
   "Soy de la comisión 3",
-  jorge
+  jorge,
 );
 
-publicarConDemora(pub10, () => {
-  console.log("¡Terminó la demora! La publicación 10 se agregó exitosamente.");
-});
+async function ejecutarPublicacion() {
+  console.log("Iniciando carga de publicación unos segundos...");
+  await publicarConDemora(pub10);
+  console.log(
+    "Termina la espera. La publicación 10 se agregó exitosamente con async/await",
+  );
+}
 
-console.log("-> Este mensaje se ejecuta justo después de llamar a publicarConDemora, no espera a que pasen los 2 segundos.");
+ejecutarPublicacion();
+
+console.log(
+  ">>>>>> Este mensaje está justo después de invocar ejecutarPublicacion() y tampoco espera porque la función es asincrona",
+);
