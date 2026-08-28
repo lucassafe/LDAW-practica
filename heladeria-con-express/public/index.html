@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Heladería</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🍦 Heladería Express</h1>
+    </header>
+
+    <form id="form-pedido">
+      <label>
+        Cliente
+        <input type="text" name="cliente" required />
+      </label>
+
+      <label>
+        Teléfono
+        <input type="tel" name="telefono" required />
+      </label>
+
+      <label>
+        Sabor
+        <input type="text" name="sabor" required />
+      </label>
+
+      <label>
+        Tamaño
+        <select name="tamano">
+          <option value="chico">Chico</option>
+          <option value="mediano">Mediano</option>
+          <option value="grande">Grande</option>
+        </select>
+      </label>
+
+      <label>
+        Cantidad
+        <input type="number" name="cantidad" min="1" value="1" required />
+      </label>
+
+      <button type="submit">Hacer pedido</button>
+    </form>
+
+    <div id="lista-pedidos"></div>
+
+    <script type="module" src="/js/app.js"></script>
+  </body>
+</html>
