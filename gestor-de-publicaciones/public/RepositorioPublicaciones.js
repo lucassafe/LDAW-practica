@@ -1,4 +1,4 @@
-import { EventEmitter } from "node:events";
+import { EventEmitter } from "./EventEmitter.js";
 
 export class RepositorioPublicaciones extends EventEmitter {
   constructor() {

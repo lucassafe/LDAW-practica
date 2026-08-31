@@ -1,12 +1,13 @@
 {
-  "name": "gestor-de-publicaciones",
+  "name": "gestor-publicaciones",
   "version": "1.0.0",
-  "description": "Gestor de publicaciones para LDAW",
-  "license": "ISC",
-  "author": "",
+  "main": "server.js",
   "type": "module",
-  "main": "main.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.22.2"
   }
 }
