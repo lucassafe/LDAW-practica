@@ -17,6 +17,10 @@ export class Publicacion {
     return this.activa;
   }
 
+  darDeBaja() {
+    this.activa = false;
+  }
+
   esDeAutor(nombre) {
     return this.autor.nombre === nombre;
   }

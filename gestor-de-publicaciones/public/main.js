@@ -103,7 +103,11 @@ activas.forEach((pub) => console.log(" -", pub.titulo));
 const nombreBuscado = "Jorge";
 const primera = publicaciones.find((pub) => pub.autor.nombre === nombreBuscado);
 console.log(`\nPRIMERA PUBLICACIÓN DE ${nombreBuscado}`);
-console.log(primera ? primera.mostrarResumen() : "No encontrada");
+if (primera) {
+  console.log(primera.mostrarResumen());
+} else {
+  console.log("No encontrada");
+}
 
 console.log("\nVERIFICACIÓN DE REFERENCIA");
 console.log("Email de Jorge ANTES del cambio:");
@@ -257,4 +261,91 @@ function actualizarCamposEspecificos() {
 }
 tipo.addEventListener("change", actualizarCamposEspecificos);
 actualizarCamposEspecificos();
+
+// --- Parte 5: Focus y blur ofrecen ayuda ---
+const email = document.getElementById("email");
+const ayudaEmail = document.getElementById("ayuda-email");
+
+function mostrarAyudaEmail() {
+  ayudaEmail.textContent = "Usá un email válido del autor";
+}
+
+function ocultarAyudaEmail() {
+  ayudaEmail.textContent = "";
+}
+
+email.addEventListener("focus", mostrarAyudaEmail);
+email.addEventListener("blur", ocultarAyudaEmail);
+
+// --- Parte 6: Submit crea objetos del dominio ---
+const formulario = document.getElementById("form-publicacion");
+const descripcion = document.getElementById("descripcion");
+const listaPublicaciones = document.getElementById("lista-publicaciones");
+
+function agregarTarjeta(publicacion) {
+  const article = document.createElement("article");
+  article.style.border = "1px solid #ccc";
+  article.style.margin = "10px 0";
+  article.style.padding = "10px";
+
+  const texto = document.createElement("span");
+  texto.textContent = publicacion.mostrarResumen() + " ";
+
+  const estado = document.createElement("strong");
+  if (publicacion.estaActiva()) {
+    estado.textContent = "Activa";
+  } else {
+    estado.textContent = "Inactiva";
+  }
+  estado.style.marginLeft = "10px";
+
+  const boton = document.createElement("button");
+  boton.textContent = "Dar de baja";
+  boton.style.marginLeft = "10px";
+
+  function manejarBaja(evento) {
+    console.log(evento.type, evento.target);
+    publicacion.darDeBaja();
+    estado.textContent = "Inactiva";
+    boton.disabled = true;
+  }
+
+  if (!publicacion.estaActiva()) {
+    boton.disabled = true;
+  }
+
+  boton.addEventListener("click", manejarBaja);
+
+  article.appendChild(texto);
+  article.appendChild(estado);
+  article.appendChild(boton);
+  listaPublicaciones.appendChild(article);
+}
+
+function crearPublicacionDesdeFormulario() {
+  const usuario = new Usuario(autor.value, email.value);
+  if (tipo.value === "venta") {
+    return new PublicacionVenta(
+      titulo.value, descripcion.value, usuario,
+      Number(document.querySelector("#precio").value)
+    );
+  }
+  return new PublicacionServicio(
+    titulo.value, descripcion.value, usuario,
+    document.querySelector("#modalidad").value,
+    Number(document.querySelector("#duracion").value)
+  );
+}
+
+function manejarEnvio(evento) {
+  evento.preventDefault();
+  const publicacion = crearPublicacionDesdeFormulario();
+  publicaciones.push(publicacion);
+  agregarTarjeta(publicacion);
+  formulario.reset();
+  actualizarCamposEspecificos();
+  actualizarVistaPrevia();
+}
+
+formulario.addEventListener("submit", manejarEnvio);
 
