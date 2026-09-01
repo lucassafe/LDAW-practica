@@ -209,3 +209,19 @@ ejecutarPublicacion();
 console.log(
   ">>>>>> Este mensaje está justo después de invocar ejecutarPublicacion() y tampoco espera porque la función es asincrona",
 );
+
+// --- p2 31/08/2026 ---
+const titulo = document.getElementById("titulo");
+const tipo = document.getElementById("tipo");
+
+function observarEvento(evento) {
+  console.table({
+    type: evento.type,
+    target: evento.target.id,
+    currentTarget: evento.currentTarget.id,
+    timeStamp: Math.round(evento.timeStamp),
+  });
+}
+
+titulo.addEventListener("input", observarEvento);
+tipo.addEventListener("change", observarEvento);
