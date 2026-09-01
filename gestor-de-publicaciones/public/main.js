@@ -225,3 +225,16 @@ function observarEvento(evento) {
 
 titulo.addEventListener("input", observarEvento);
 tipo.addEventListener("change", observarEvento);
+
+// --- p3 31/08/2026 Vista previa incremental ---
+const autor = document.getElementById("autor");
+const vistaPrevia = document.getElementById("vista-previa");
+
+function actualizarVistaPrevia() {
+  const nombre = autor.value || "Autor";
+  const texto = titulo.value || "Sin título";
+  vistaPrevia.textContent = `${texto} — ${nombre} (${tipo.value})`;
+}
+titulo.addEventListener("input", actualizarVistaPrevia);
+autor.addEventListener("input", actualizarVistaPrevia);
+tipo.addEventListener("change", actualizarVistaPrevia);
