@@ -208,7 +208,6 @@ function agregarTarjeta(publicacion) {
   listaPublicaciones.appendChild(article);
 }
 
-
 function crearPublicacionDesdeFormulario() {
   const usuario = new Usuario(autor.value, email.value);
   if (tipo.value === "venta") {
@@ -248,3 +247,15 @@ function observarClick(evento) {
 listaPublicaciones.addEventListener("click", observarClick);
 
 listaPublicaciones.removeEventListener("click", observarClick); //sacar despues de probar
+
+// --- p3 2/9/2026 Encontrar el control correcto ---
+function manejarAccion(evento) {
+  const boton = evento.target.closest("button[data-accion]");
+  if (!boton || !listaPublicaciones.contains(boton)) return;
+
+  const tarjeta = boton.closest("[data-id]");
+  const id = Number(tarjeta.dataset.id);
+
+  console.log(id, boton.dataset.accion);
+}
+listaPublicaciones.addEventListener("click", manejarAccion);
