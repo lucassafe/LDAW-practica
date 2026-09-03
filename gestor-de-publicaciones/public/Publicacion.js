@@ -7,6 +7,7 @@ export class Publicacion {
     this.autor = autor; // autor es un objet
     this.fechaPublicacion = new Date();
     this.activa = true;
+    this.destacada = false;
   }
 
   mostrarResumen() {
@@ -19,6 +20,10 @@ export class Publicacion {
 
   darDeBaja() {
     this.activa = false;
+  }
+  
+  destacar() {
+    this.destacada = true;
   }
 
   esDeAutor(nombre) {

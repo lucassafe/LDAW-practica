@@ -165,6 +165,9 @@ function agregarTarjeta(publicacion) {
   article.style.border = "1px solid #ccc";
   article.style.margin = "10px 0";
   article.style.padding = "10px";
+  if (publicacion.destacada) {
+    article.style.backgroundColor = "#fff3cd";
+  }
   article.dataset.id = publicacion.id;
 
   const texto = document.createElement("span");
@@ -188,24 +191,20 @@ function agregarTarjeta(publicacion) {
   boton.dataset.accion = "baja";
   boton.style.marginLeft = "10px";
 
-  function manejarBaja(evento) {
-    console.log(evento.type, evento.target);
-    publicacion.darDeBaja();
-    estado.textContent = "Inactiva";
-    boton.disabled = true;
-  }
-
   if (!publicacion.estaActiva()) {
     boton.disabled = true;
   }
-
-  boton.addEventListener("click", manejarBaja);
 
   article.appendChild(texto);
   article.appendChild(estado);
   article.appendChild(botonDestacar);
   article.appendChild(boton);
   listaPublicaciones.appendChild(article);
+}
+
+function renderizarPublicaciones() {
+  listaPublicaciones.innerHTML = "";
+  publicaciones.forEach((pub) => agregarTarjeta(pub));
 }
 
 function crearPublicacionDesdeFormulario() {
@@ -231,7 +230,7 @@ function manejarEnvio(evento) {
   evento.preventDefault();
   const publicacion = crearPublicacionDesdeFormulario();
   publicaciones.push(publicacion);
-  agregarTarjeta(publicacion);
+  renderizarPublicaciones();
   formulario.reset();
   actualizarCamposEspecificos();
   actualizarVistaPrevia();
@@ -248,14 +247,21 @@ listaPublicaciones.addEventListener("click", observarClick);
 
 listaPublicaciones.removeEventListener("click", observarClick); //sacar despues de probar
 
-// --- p3 2/9/2026 Encontrar el control correcto ---
+// --- p3 y p4: conectar con el dominio ---
 function manejarAccion(evento) {
   const boton = evento.target.closest("button[data-accion]");
   if (!boton || !listaPublicaciones.contains(boton)) return;
 
   const tarjeta = boton.closest("[data-id]");
   const id = Number(tarjeta.dataset.id);
+  const accion = boton.dataset.accion;
 
-  console.log(id, boton.dataset.accion);
+  const publicacion = publicaciones.find((p) => p.id === id);
+  if (!publicacion) return;
+
+  if (accion === "baja") publicacion.darDeBaja();
+  if (accion === "destacar") publicacion.destacar();
+
+  renderizarPublicaciones();
 }
 listaPublicaciones.addEventListener("click", manejarAccion);
