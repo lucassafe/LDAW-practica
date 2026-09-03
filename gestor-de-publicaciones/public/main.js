@@ -89,7 +89,6 @@ pub5.activa = false;
 
 const publicaciones = [pub1, pub2, pub3, pub4, pub5, pub6, pub7, pub8, pub9];
 
-
 const titulo = document.getElementById("titulo");
 const tipo = document.getElementById("tipo");
 
@@ -201,14 +200,18 @@ function crearPublicacionDesdeFormulario() {
   const usuario = new Usuario(autor.value, email.value);
   if (tipo.value === "venta") {
     return new PublicacionVenta(
-      titulo.value, descripcion.value, usuario,
-      Number(document.querySelector("#precio").value)
+      titulo.value,
+      descripcion.value,
+      usuario,
+      Number(document.querySelector("#precio").value),
     );
   }
   return new PublicacionServicio(
-    titulo.value, descripcion.value, usuario,
+    titulo.value,
+    descripcion.value,
+    usuario,
     document.querySelector("#modalidad").value,
-    Number(document.querySelector("#duracion").value)
+    Number(document.querySelector("#duracion").value),
   );
 }
 
@@ -224,3 +227,11 @@ function manejarEnvio(evento) {
 
 formulario.addEventListener("submit", manejarEnvio);
 
+// --- p1 2/9/2026 ---
+function observarClick(evento) {
+  console.log("target", evento.target);
+  console.log("currentTarget", evento.currentTarget);
+}
+listaPublicaciones.addEventListener("click", observarClick);
+
+listaPublicaciones.removeEventListener("click", observarClick); //sacar despues de probar
