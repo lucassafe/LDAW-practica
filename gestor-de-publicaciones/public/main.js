@@ -157,10 +157,15 @@ const descripcion = document.getElementById("descripcion");
 const listaPublicaciones = document.getElementById("lista-publicaciones");
 
 function agregarTarjeta(publicacion) {
+  if (publicacion.id === undefined) {
+    publicacion.id = publicaciones.indexOf(publicacion);
+  }
+
   const article = document.createElement("article");
   article.style.border = "1px solid #ccc";
   article.style.margin = "10px 0";
   article.style.padding = "10px";
+  article.dataset.id = publicacion.id;
 
   const texto = document.createElement("span");
   texto.textContent = publicacion.mostrarResumen() + " ";
@@ -173,8 +178,14 @@ function agregarTarjeta(publicacion) {
   }
   estado.style.marginLeft = "10px";
 
+  const botonDestacar = document.createElement("button");
+  botonDestacar.textContent = "Destacar";
+  botonDestacar.dataset.accion = "destacar";
+  botonDestacar.style.marginLeft = "10px";
+
   const boton = document.createElement("button");
   boton.textContent = "Dar de baja";
+  boton.dataset.accion = "baja";
   boton.style.marginLeft = "10px";
 
   function manejarBaja(evento) {
@@ -192,9 +203,11 @@ function agregarTarjeta(publicacion) {
 
   article.appendChild(texto);
   article.appendChild(estado);
+  article.appendChild(botonDestacar);
   article.appendChild(boton);
   listaPublicaciones.appendChild(article);
 }
+
 
 function crearPublicacionDesdeFormulario() {
   const usuario = new Usuario(autor.value, email.value);
